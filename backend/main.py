@@ -20,13 +20,18 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# Enhanced CORS configuration for VPS deployment
+# Enhanced CORS configuration for VPS deployment and Vercel
 allowed_origins = [
+    # Local development
     "http://localhost:3000",
-    "http://localhost:3001", 
+    "http://localhost:3001",
     "http://localhost:3002",
     "http://127.0.0.1:3001",
-    "http://0.0.0.0:3001"
+    "http://0.0.0.0:3001",
+    
+    # Vercel deployment domains
+    "https://*.vercel.app",
+    "https://vercel.app",
 ]
 
 # Add production origins from environment
@@ -35,20 +40,30 @@ for origin in production_origins:
     if origin.strip():
         allowed_origins.append(origin.strip())
 
-# If PRODUCTION mode, also allow any origin on ports 3001 and 8000
+# Build CORS regex pattern for flexible domain matching
+cors_regex_patterns = []
+
+# Always allow Vercel domains
+cors_regex_patterns.append(r"https://.*\.vercel\.app")
+
+# If PRODUCTION mode, also allow VPS IP patterns
 if os.getenv("PRODUCTION"):
-    # Allow common VPS IP patterns (this is for development - in real production, specify exact domains)
-    allowed_origins.extend([
-        "http://*:3001",
-        "http://*:8000"
+    cors_regex_patterns.extend([
+        r"http://.*:3001",
+        r"http://.*:8000",
+        r"https://.*:3001",
+        r"https://.*:8000"
     ])
+
+# Combine all regex patterns
+combined_regex = "|".join(cors_regex_patterns) if cors_regex_patterns else None
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=allowed_origins,
-    allow_origin_regex=r"http://.*:3001|http://.*:8000" if os.getenv("PRODUCTION") else None,
+    allow_origin_regex=combined_regex,
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["*"],
 )
 

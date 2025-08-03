@@ -114,6 +114,36 @@ cd /opt/pure-vpn
 # http://YOUR-VPS-IP:3001
 ```
 
+#### Option C: Vercel + VPS Deployment (Best Performance!)
+
+Deploy frontend to Vercel CDN for global performance while keeping backend on your VPS:
+
+```bash
+# 1. Ensure backend is running on your VPS
+ssh root@YOUR-VPS-IP
+cd /opt/pure-vpn && ./start-production.sh
+
+# 2. Open firewall for external API access
+sudo ufw allow 8000
+
+# 3. Deploy frontend to Vercel
+chmod +x deploy-vercel.sh
+./deploy-vercel.sh
+
+# Follow prompts to enter your VPS IP
+# Your frontend will be at: https://your-project.vercel.app
+# Connected to your VPS backend at: http://YOUR-VPS-IP:8000
+```
+
+**🌟 Vercel Benefits**:
+- **⚡ Lightning Fast**: Global CDN distribution
+- **📱 Mobile Optimized**: Perfect mobile experience
+- **🔄 Auto Deployments**: Deploy via Git commits
+- **💰 Free Hosting**: Vercel frontend + $6/month VPS backend
+- **🌍 Worldwide Access**: Instant loading anywhere in the world
+
+See [VERCEL_DEPLOYMENT.md](VERCEL_DEPLOYMENT.md) for detailed Vercel deployment guide.
+
 ### 4. Configuration
 
 Edit `backend/.env` with your server details:

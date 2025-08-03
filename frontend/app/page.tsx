@@ -1,26 +1,8 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
 import QRCode from 'react-qr-code'
-
-interface VPNStatus {
-  status: string
-  message?: string
-  progress?: number
-  server_ip?: string
-  connection_type?: string
-  estimated_cost?: string
-  active_servers?: number
-  total_peers?: number
-  available_slots?: number
-}
-
-interface ConfigData {
-  username: string
-  config: string
-  filename: string
-}
+import { api, VPNStatus, ConfigData } from '../utils/api'
 
 export default function PureVPN() {
   const [vpnStatus, setVpnStatus] = useState<VPNStatus>({ status: 'idle' })
@@ -33,7 +15,7 @@ export default function PureVPN() {
   useEffect(() => {
     const checkStatus = async () => {
       try {
-        const response = await axios.get('/api/status')
+        const response = await api.getStatus()
         setVpnStatus(response.data)
         
         if (response.data.status === 'connected' && !config) {
@@ -59,12 +41,12 @@ export default function PureVPN() {
     setError('')
     
     try {
-      await axios.post(`/api/join/${username}`)
+      await api.joinVPN(username)
       
       // Poll for completion
       const pollForCompletion = async () => {
         try {
-          const response = await axios.get('/api/deployment-status')
+          const response = await api.getDeploymentStatus()
           
           if (response.data.status === 'completed') {
             await loadUserConfig()
@@ -90,7 +72,7 @@ export default function PureVPN() {
 
   const disconnectFromVPN = async () => {
     try {
-      await axios.post(`/api/disconnect/${username}`)
+      await api.disconnectVPN(username)
       setConfig(null)
       setVpnStatus({ status: 'idle' })
     } catch (err: any) {
@@ -100,7 +82,7 @@ export default function PureVPN() {
 
   const loadUserConfig = async () => {
     try {
-      const response = await axios.get(`/api/config/${username}`)
+      const response = await api.getUserConfig(username)
       setConfig(response.data)
     } catch (err) {
       console.error('Failed to load config:', err)
