@@ -1,0 +1,60 @@
+🚀 Pure VPN - VPS Deployment Instructions
+=========================================
+
+🎯 Goal: Make Pure VPN accessible from ANYWHERE at http://YOUR-VPS-IP:3001
+
+📋 Prerequisites:
+- Your VPS IP: YOUR.VPS.IP.ADDRESS (replace with yours)
+- VPS has WireGuard installed and working
+- You have root/sudo access
+
+🔧 Step-by-Step Deployment:
+
+1️⃣ Upload deployment script to your VPS:
+   scp deploy-to-vps.sh root@YOUR-VPS-IP:/root/
+
+2️⃣ SSH to your VPS:
+   ssh root@YOUR-VPS-IP
+
+3️⃣ Run the automated deployment:
+   chmod +x deploy-to-vps.sh
+   ./deploy-to-vps.sh
+
+4️⃣ Configure your credentials:
+   cd /opt/pure-vpn
+   nano backend/.env
+   # Change SSH_PASSWORD to your actual password
+   # Change EXISTING_SERVER_IP to your VPS IP
+
+5️⃣ Start Pure VPN:
+   ./start-production.sh
+
+6️⃣ Access from anywhere:
+   Open: http://YOUR-VPS-IP:3001
+
+🎉 That's it! Pure VPN is now accessible from any device, anywhere in the world!
+
+📱 Usage:
+- Enter any username
+- Click "Connect to Pure VPN"
+- Scan QR code with phone or download .conf for desktop
+- Your VPN is ready!
+
+🔧 Management:
+- Start: cd /opt/pure-vpn && ./start-production.sh
+- Stop:  cd /opt/pure-vpn && ./stop-production.sh
+- Status: sudo systemctl status pure-vpn-backend pure-vpn-frontend
+
+🌍 Benefits:
+✅ Access from any device (phone, laptop, tablet)
+✅ Share with family/friends via URL
+✅ Perfect for travel - always have your VPN
+✅ No need to run locally anymore
+✅ 24/7 availability
+✅ Professional systemd services with auto-restart
+
+🎯 Perfect URL to bookmark: http://YOUR-VPS-IP:3001
+
+💰 Monthly Cost: ~$6/month for unlimited users and bandwidth
+🔒 Privacy: Complete control, no third-party logging
+🌐 Access: Available worldwide from any device 

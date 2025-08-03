@@ -1,0 +1,18 @@
+{
+  "server_ip": "95.179.152.203",
+  "peers": {
+    "austin": {
+      "ip": "10.0.0.2",
+      "public_key": "6BYO9T1eKs1aJqbgcJt4BgAZkqWaUcnq59wTVIgY22A=",
+      "private_key": "cA5CpUbZIkGH5PLKJd/H64Go/gj9BOUbIzSkA65KA1g=",
+      "added_at": "2025-08-03T00:32:28.418318"
+    },
+    "snack": {
+      "ip": "10.0.0.3",
+      "public_key": "FxO/BOw0oaKiX/IAoO8YxkQi0ZkAJyLNEAznXLVC8Uw=",
+      "private_key": "wG9+T9n+XoUSpIErPtaDsdX3M/FnEOaDpGq2He7k5Ec=",
+      "added_at": "2025-08-03T00:57:17.593259"
+    }
+  },
+  "last_activity": "2025-08-03T00:57:17.593310"
+}

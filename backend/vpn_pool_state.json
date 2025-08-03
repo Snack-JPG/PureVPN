@@ -1,0 +1,24 @@
+{
+  "servers": {
+    "d8a16d81-191d-4872-98d8-f4ff6ecb0c4a": {
+      "ip": "107.191.43.150",
+      "created_at": "2025-08-03T00:27:02.401945",
+      "last_activity": "2025-08-03T00:27:04.802178",
+      "setup_password": "FBBaCIeRFGQBMGAl",
+      "peers": {
+        "austin": {
+          "ip": "10.0.0.2",
+          "public_key": "MnLa+FAjPSzrBpfes75VidJ+xDrpm3SeuNwzQBDUYmE=",
+          "added_at": "2025-08-03T00:27:04.802164"
+        }
+      }
+    }
+  },
+  "user_assignments": {
+    "austin": {
+      "server_id": "d8a16d81-191d-4872-98d8-f4ff6ecb0c4a",
+      "peer_ip": "10.0.0.2",
+      "config": "[Interface]\nPrivateKey = sHTKIn2x5RsIlbEMZKWMc0XErSxvVy9866s4r2/xwGc=\nAddress = 10.0.0.2/24\nDNS = 8.8.8.8\n\n[Peer]\nPublicKey = vrhOJKvZJn1SBgNIKlH3XxlRV9Lr8/E+r0K8mNr08k0=\nEndpoint = 107.191.43.150:51820\nAllowedIPs = 0.0.0.0/0\nPersistentKeepalive = 25\n"
+    }
+  }
+}
